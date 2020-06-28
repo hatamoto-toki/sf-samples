@@ -1,0 +1,21 @@
+<apex:page standardController="Account" extensions="LCCopyAccountController" showHeader="false" showQuickActionVfHeader="false" lightningStylesheets="true" >
+    <!-- Publisherアクションを呼び出し --> 
+    <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    
+    <script>
+    var accId = "{!Account.Id}";
+    var newAccId;
+    //案件コピー
+    LCCopyAccountController.getAccWithContacts(accId, function(result, event){
+        if (event.status) {
+            newAccId = result;
+            //編集画面を起動
+            sforce.one.editRecord(newAccId);
+            
+            //編集画面は新規ウィンドウ扱いとなるため、予めこのウィンドウを閉じる
+            Sfdc.canvas.publisher.publish({ name: "publisher.close", payload:{ refresh: "true" }});
+        }
+    });
+    
+    </script>
+</apex:page>

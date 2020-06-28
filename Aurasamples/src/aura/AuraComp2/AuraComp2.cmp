@@ -1,0 +1,33 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" controller="LCCopyAccountController" >
+    <aura:handler name="init" value="this" action="{!c.doInit}"/>
+    <aura:attribute name="newRecId" type="String"/>
+    <aura:handler name="onSaveSuccess" event="force:recordSaveSuccess" action="{!c.handleSaveSuccess}"/>
+    
+    <!-- 標準CSSを上書き -->
+    <aura:html tag="style">
+    .cuf-content {
+    padding: 0 0rem !important;
+    }
+    .slds-p-around--medium {
+    padding: 0rem !important;
+    }
+    .slds-modal__content {
+        overflow-y: hidden !important;
+        height: unset !important;
+        max-height: unset !important;
+    }        
+    </aura:html>
+
+    <!-- レコード編集画面を表示 -->
+    <div class="modal-header slds-modal__header slds-size-1-of-1">
+        <h4 class="title slds-text-heading--medium" >取引先のコピー</h4>
+    </div>
+    <div class="slds-col modal-body scrollable slds-p-around--medium" style="height: 400px; max-height: 400px; overflow-y: auto !important">
+         <force:recordEdit aura:id="edit" recordId="{!v.newRecId}" />
+    </div>
+    <div class="modal-footer slds-modal__footer">
+        <lightning:button class="slds-button slds-button_neutral" label="キャンセル" onclick="{!c.cancel}"/>
+        <lightning:button class="slds-button slds-button_brand" label="保存" onclick="{!c.save}"/>
+    </div>
+
+</aura:component>

@@ -1,0 +1,14 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:handler name="render" value="this" action="{!c.doInit}"/>
+    <aura:attribute name="rec" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    
+    <!-- 起動時にレコード情報を読み込み -->
+    <force:recordData aura:id="recordLoader"
+        recordId="{!v.recordId}"
+        fields="Name,Phone,Description,BillingCity,BillingStreet,BillingState,BillingPostalCode,BillingCountry"
+        targetFields="{!v.rec}"
+        targetError="{!v.recordLoadError}"
+    />
+
+</aura:component>
